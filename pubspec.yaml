@@ -1,4 +1,4 @@
-name: matcher
+name: contract
 version: 0.12.16+1
 description: >-
   Support for specifying test expectations via an extensible Matcher class.

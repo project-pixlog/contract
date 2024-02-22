@@ -10,7 +10,6 @@ environment:
 
 dependencies:
   async: ^2.10.0
-  logging: ^1.2.0
   meta: ^1.8.0
   stack_trace: ^1.10.0
   term_glyph: ^1.2.0

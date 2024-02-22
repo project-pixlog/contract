@@ -34,31 +34,3 @@ export 'src/expect/expect_async.dart'
 export 'src/expect/future_matchers.dart'
     show completes, completion, doesNotComplete;
 export 'src/expect/never_called.dart' show neverCalled;
-export 'src/expect/prints_matcher.dart' show prints;
-export 'src/expect/stream_matcher.dart' show StreamMatcher;
-export 'src/expect/stream_matchers.dart'
-    show
-        emitsDone,
-        emits,
-        emitsError,
-        mayEmit,
-        emitsAnyOf,
-        emitsInOrder,
-        emitsInAnyOrder,
-        emitsThrough,
-        mayEmitMultiple,
-        neverEmits;
-export 'src/expect/throws_matcher.dart' show Throws, throws, throwsA;
-export 'src/expect/throws_matchers.dart'
-    show
-        throwsArgumentError,
-        throwsConcurrentModificationError,
-        throwsCyclicInitializationError,
-        throwsException,
-        throwsFormatException,
-        throwsNoSuchMethodError,
-        throwsNullThrownError,
-        throwsRangeError,
-        throwsStateError,
-        throwsUnimplementedError,
-        throwsUnsupportedError;

@@ -11,7 +11,6 @@ import '../interfaces.dart';
 import '../util.dart';
 import 'async_matcher.dart';
 import 'expect.dart';
-import 'throws_matcher.dart';
 import 'util/pretty_print.dart';
 
 /// Matches a [Future] that completes successfully with any value.

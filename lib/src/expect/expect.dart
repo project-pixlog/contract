@@ -14,8 +14,6 @@ import '../type_matcher.dart';
 import '../util.dart';
 import 'async_matcher.dart';
 import 'future_matchers.dart';
-import 'prints_matcher.dart';
-import 'throws_matcher.dart';
 import 'util/pretty_print.dart';
 
 /// The type used for functions that can be used to build up error reports

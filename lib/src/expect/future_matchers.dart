@@ -4,7 +4,6 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 
-import 'package:test_api/hooks.dart' show pumpEventQueue;
 
 import '../description.dart';
 import '../interfaces.dart';
@@ -105,7 +104,6 @@ class _DoesNotComplete extends Matcher {
       fail('Future was not expected to complete but completed with a value of '
           '$value');
     });
-    expect(pumpEventQueue(), completes);
     return true;
   }
 

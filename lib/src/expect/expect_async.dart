@@ -2,9 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:test_api/hooks.dart';
-
-import '../error.dart';
 import 'util/placeholder.dart';
 
 // Function types returned by expectAsync# methods.
@@ -60,13 +57,8 @@ class _ExpectedFunction<T> {
   /// The number of times the function has been called.
   int _actualCalls = 0;
 
-  /// The test in which this function was wrapped.
-  late final TestHandle _test;
-
   /// Whether this function has been called the requisite number of times.
   late bool _complete;
-
-  OutstandingWork? _outstandingWork;
 
   /// Wraps [callback] in a function that asserts that it's called at least
   /// [minExpected] times and no more than [maxExpected] times.
@@ -83,11 +75,6 @@ class _ExpectedFunction<T> {
         _isDone = isDone,
         _reason = reason == null ? '' : '\n$reason',
         _id = _makeCallbackId(id, callback) {
-    try {
-      _test = TestHandle.current;
-    } on OutsideTestException {
-      throw StateError('`expectAsync` must be called within a test.');
-    }
 
     if (maxExpected > 0 && minExpected > maxExpected) {
       throw ArgumentError('max ($maxExpected) may not be less than count '
@@ -95,7 +82,6 @@ class _ExpectedFunction<T> {
     }
 
     if (isDone != null || minExpected > 0) {
-      _outstandingWork = _test.markPending();
       _complete = false;
     } else {
       _complete = true;
@@ -135,7 +121,6 @@ class _ExpectedFunction<T> {
     if (_callback is Function(Never)) return max1;
     if (_callback is Function()) return max0;
 
-    _outstandingWork?.complete();
     throw ArgumentError(
         'The wrapped function has more than 6 required arguments');
   }
@@ -185,15 +170,6 @@ class _ExpectedFunction<T> {
     // pass it to the invoker anyway.
     try {
       _actualCalls++;
-      if (_test.shouldBeDone) {
-        throw ContractClauseBroken(
-            'Callback ${_id}called ($_actualCalls) after test case '
-            '${_test.name} had already completed.$_reason');
-      } else if (_maxExpectedCalls >= 0 && _actualCalls > _maxExpectedCalls) {
-        throw ContractClauseBroken('Callback ${_id}called more times than expected '
-            '($_maxExpectedCalls).$_reason');
-      }
-
       return Function.apply(_callback, args.toList()) as T;
     } finally {
       _afterRun();
@@ -209,7 +185,6 @@ class _ExpectedFunction<T> {
     // Mark this callback as complete and remove it from the test case's
     // outstanding callback count; if that hits zero the test is done.
     _complete = true;
-    _outstandingWork?.complete();
   }
 }
 

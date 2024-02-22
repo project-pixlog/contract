@@ -5,11 +5,8 @@
 import 'dart:async';
 
 import 'package:stack_trace/stack_trace.dart';
-import 'package:test_api/hooks.dart';
 
 import '../error.dart';
-import 'expect.dart';
-import 'future_matchers.dart';
 import 'util/placeholder.dart';
 import 'util/pretty_print.dart';
 
@@ -36,9 +33,6 @@ Null Function(
     Object?,
     Object?,
     Object?]) get neverCalled {
-  // Make sure the test stays alive long enough to call the function if it's
-  // going to.
-  expect(pumpEventQueue(), completes);
 
   var zone = Zone.current;
   return (

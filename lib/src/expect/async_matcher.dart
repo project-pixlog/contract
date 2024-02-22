@@ -4,8 +4,6 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 
-import 'package:test_api/hooks.dart';
-
 import '../description.dart';
 import '../equals_matcher.dart';
 import '../interfaces.dart';
@@ -46,12 +44,10 @@ abstract class AsyncMatcher extends Matcher {
         reason: 'matchAsync() may only return a String, a Future, or null.');
 
     if (result is Future) {
-      final outstandingWork = TestHandle.current.markPending();
       result.then((realResult) {
         if (realResult != null) {
           fail(formatFailure(this, item, realResult as String));
         }
-        outstandingWork.complete();
       });
     } else if (result is String) {
       matchState[this] = result;

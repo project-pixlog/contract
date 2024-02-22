@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:test_api/hooks.dart';
 
+import '../error.dart';
 import 'expect.dart';
 import 'future_matchers.dart';
 import 'util/placeholder.dart';
@@ -59,7 +60,7 @@ Null Function(
         ? ' no arguments.'
         : ':\n${bullet(arguments.map(prettyPrint))}';
     zone.handleUncaughtError(
-        TestFailure(
+        ContractClauseBroken(
             'Callback should never have been called, but it was called with'
             '$argsText'),
         zone.run(Chain.current));

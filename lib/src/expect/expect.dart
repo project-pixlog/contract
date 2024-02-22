@@ -4,10 +4,9 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 
-import 'package:test_api/hooks.dart';
-
 import '../description.dart';
 import '../equals_matcher.dart';
+import '../error.dart';
 import '../interfaces.dart';
 import '../operator_matchers.dart';
 import '../type_matcher.dart';
@@ -31,7 +30,7 @@ typedef ErrorFormatter = String Function(Object? actual, Matcher matcher,
 /// [matcher] can be a value in which case it will be wrapped in an
 /// [equals] matcher.
 ///
-/// If the assertion fails a [TestFailure] is thrown.
+/// If the assertion fails a [ContractClauseBroken] is thrown.
 ///
 /// If [skip] is a String or `true`, the assertion is skipped. The arguments are
 /// still evaluated, but [actual] is not verified to match [matcher]. If
@@ -118,9 +117,9 @@ Future _expect(Object? actual, Object? matcher, {String? reason}) {
   fail(formatter(actual, matcher as Matcher, reason, matchState));
 }
 
-/// Convenience method for throwing a new [TestFailure] with the provided
+/// Convenience method for throwing a new [ContractClauseBroken] with the provided
 /// [message].
-Never fail(String message) => throw TestFailure(message);
+Never fail(String message) => throw ContractClauseBroken(message);
 
 // The default error formatter.
 @Deprecated('Will be removed in 0.13.0.')

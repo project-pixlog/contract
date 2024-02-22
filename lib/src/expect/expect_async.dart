@@ -4,6 +4,7 @@
 
 import 'package:test_api/hooks.dart';
 
+import '../error.dart';
 import 'util/placeholder.dart';
 
 // Function types returned by expectAsync# methods.
@@ -185,11 +186,11 @@ class _ExpectedFunction<T> {
     try {
       _actualCalls++;
       if (_test.shouldBeDone) {
-        throw TestFailure(
+        throw ContractClauseBroken(
             'Callback ${_id}called ($_actualCalls) after test case '
             '${_test.name} had already completed.$_reason');
       } else if (_maxExpectedCalls >= 0 && _actualCalls > _maxExpectedCalls) {
-        throw TestFailure('Callback ${_id}called more times than expected '
+        throw ContractClauseBroken('Callback ${_id}called more times than expected '
             '($_maxExpectedCalls).$_reason');
       }
 

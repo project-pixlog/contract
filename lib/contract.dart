@@ -46,8 +46,7 @@ abstract class Contract {
       return e.expect(actual, matcher);
     } catch (e) {
       if (_logger == null) rethrow;
-      final stackTrace = verbose ? StackTrace.current : '';
-      _logger?.severe('[Contract] Check failed\n$e$stackTrace');
+      _logError(e);
     }
   }
 
@@ -67,9 +66,14 @@ abstract class Contract {
     try {
       return e.expectLater(actual, matcher);
     } catch (e) {
-      if (_logger == null) rethrow;
-      final stackTrace = verbose ? StackTrace.current : '';
-      _logger?.severe('[Contract] Check failed\n$e$stackTrace');
+      _logError(e);
     }
+  }
+
+  static void _logError(Object e) {
+    final stackTrace = verbose ? StackTrace.current : '';
+    _logger?.severe(
+        '[Contract] A contract clause was broken. Something is very wrong. '
+        'Maybe we found a BUG.\n$e$stackTrace');
   }
 }

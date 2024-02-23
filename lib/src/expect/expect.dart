@@ -4,9 +4,9 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 
+import '../../listeners.dart';
 import '../description.dart';
 import '../equals_matcher.dart';
-import '../error.dart';
 import '../interfaces.dart';
 import '../operator_matchers.dart';
 import '../type_matcher.dart';
@@ -115,11 +115,12 @@ Future _expect(Object? actual, Object? matcher, {String? reason}) {
     reason ??= '$e at $trace';
   }
   fail(formatter(actual, matcher as Matcher, reason, matchState));
+  return Future.sync(() {});
 }
 
 /// Convenience method for throwing a new [ContractClauseBroken] with the provided
 /// [message].
-Never fail(String message) => throw ContractClauseBroken(message);
+void fail(String message) => Listeners.notify(message);
 
 // The default error formatter.
 @Deprecated('Will be removed in 0.13.0.')

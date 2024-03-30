@@ -1,3 +1,5 @@
+// ignore_for_file: comment_references
+
 library;
 
 import 'listeners.dart';
@@ -20,12 +22,22 @@ export 'src/util.dart';
 
 abstract class Contract {
   static bool get verbose => Listeners.verbose;
+  /// Whether a clause evaluation should throw an exception
+  static bool get shouldThrow => Listeners.shouldThrow;
 
-  /// Set [verbose] mode true or false
+  /// Configures [verbose] and [shouldThrow] modes.
   ///
-  /// When set to true, a not null StackTrace will be provided for listeners
-  /// together with [reason].
-  static void setVerbose(bool verbose) => Listeners.verbose = verbose;
+  /// When [verbose] is set to true, a not null StackTrace will be provided for 
+  /// listeners together with [reason].
+  /// When [shouldThrow] is set to true, a [ContractClauseBroken] exception is 
+  /// thrown whenever a clause is broken.
+  static void init({
+    bool? verbose,
+    bool? shouldThrow,
+  }) {
+    if (verbose != null) Listeners.verbose = verbose;
+    if (shouldThrow != null) Listeners.shouldThrow = shouldThrow;
+  }
 
   /// Add [listener] callback to be called whenever a [softClause] is broken
   static void addListener(void Function(Object, StackTrace?) listener) =>

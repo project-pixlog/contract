@@ -4,13 +4,8 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 
+import '../../contract.dart';
 import '../../listeners.dart';
-import '../description.dart';
-import '../equals_matcher.dart';
-import '../interfaces.dart';
-import '../operator_matchers.dart';
-import '../type_matcher.dart';
-import '../util.dart';
 import 'async_matcher.dart';
 import 'future_matchers.dart';
 import 'util/pretty_print.dart';
@@ -120,7 +115,10 @@ Future _expect(Object? actual, Object? matcher, {String? reason}) {
 
 /// Convenience method for throwing a new [ContractClauseBroken] with the provided
 /// [message].
-void fail(String message) => Listeners.notify(message);
+void fail(String message) {
+  Listeners.notify(message);
+  if (Listeners.shouldThrow) throw ContractClauseBroken(message);
+}
 
 // The default error formatter.
 @Deprecated('Will be removed in 0.13.0.')

@@ -1,5 +1,6 @@
 abstract class Listeners {
   static bool verbose = true;
+  static bool shouldThrow = false;
   static List<void Function(Object, StackTrace?)> listeners = [];
 
   /// Set [verbose] mode true or false

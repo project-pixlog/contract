@@ -37,22 +37,6 @@ abstract class Contract {
 
   static void dispose() => Listeners.dispose();
 
-  /// Assert that [actual] matches [matcher].
-  ///
-  /// [matcher] can be a value in which case it will be wrapped in an
-  /// [equals] matcher.
-  ///
-  /// If the assertion fails [reason] is send to [listeners].
-  /// If [verbose] mode is on, StackTrace.current is send to [listeners] too.
-  ///
-  /// Certain matchers, like [completion] and [throwsA], either match or fail
-  /// asynchronously. When you use [softClause] with these matchers, it ensures that
-  /// the test doesn't complete until the matcher has either matched or failed. If
-  /// you want to wait for the matcher to complete before continuing the test, you
-  /// can call [asyncClause] instead and `await` the result.
-  static void softClause(dynamic actual, dynamic matcher) =>
-      e.expect(actual, matcher);
-
   /// Assert that [actual] matches [matcher]. Throws if don't.
   ///
   /// [matcher] can be a value in which case it will be wrapped in an
@@ -62,14 +46,14 @@ abstract class Contract {
   /// If [verbose] mode is on, StackTrace.current is send to [listeners] too.
   ///
   /// Certain matchers, like [completion] and [throwsA], either match or fail
-  /// asynchronously. When you use [softClause] with these matchers, it ensures that
-  /// the test doesn't complete until the matcher has either matched or failed. If
-  /// you want to wait for the matcher to complete before continuing the test, you
-  /// can call [asyncClause] instead and `await` the result.
+  /// asynchronously. When you use [softClause] with these matchers, it ensures
+  /// that the test doesn't complete until the matcher has either matched or
+  /// failed. If you want to wait for the matcher to complete before continuing
+  /// the test, you can call [asyncClause] instead and `await` the result.
   static void clause(dynamic actual, dynamic matcher) =>
       e.expect(actual, matcher);
 
-  /// Just like [softClause], but returns a [Future] that completes when the matcher
+  /// Just like [clause], but returns a [Future] that completes when the matcher
   /// has finished matching.
   ///
   /// For the [completes] and [completion] matchers, as well as [throwsA] and

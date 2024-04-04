@@ -80,3 +80,27 @@ abstract class Contract {
   static Future asyncClause(dynamic actual, dynamic matcher) async =>
       e.expectLater(actual, matcher);
 }
+
+/// Simplified way to call [Contract.clause]([actual], [matcher]).
+///  
+/// Results are identical to directly calling [Contract.clause], but
+/// it offers a more familiar syntax to Dart's default [assert] statement.
+///  
+/// See [Contract.clause] documentation for details.
+///
+/// ```dart
+/// // implementation
+/// void assertq(bool expression) => Contract.clause(expression, true);
+/// ```
+void assertq(bool expression) => Contract.clause(expression, true);
+
+/// Just another way to call [Contract.clause]([actual], [matcher])
+///  
+/// See [Contract.clause] documentation
+/// ```dart
+/// // implementation
+/// void assertp(dynamic actual, dynamic matcher) =>
+///   Contract.clause(actual, matcher);
+/// ```
+void assertp(dynamic actual, dynamic matcher) =>
+    Contract.clause(actual, matcher);
